@@ -1,7 +1,12 @@
-name : Salesforce Deployment
+name: Salesforce Deployment
+
 on:
- push:
-   branches : */*
+  push:
+    branches:
+      - main
+      - "feature/*"
+      - "bugfix/*"
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -13,12 +18,12 @@ jobs:
       - name: Install Salesforce CLI
         uses: salesforcecli/install@v1
 
-      - name: Authenticate Salesforce Org Using sf auth url 
-        shell: bash 
+      - name: Authenticate Salesforce Org
+        shell: bash
         run: |
           echo "${{ secrets.SFDX_AUTH_FILE }}" > authFile.json
           sf org login sfdx-url --sfdx-url-file authFile.json -a projectLog
-        
+
       - name: Deploy to Salesforce
         run: |
-          sf project deploy start -d force-app -o projectLog
+          sf project deploy start -o projectLog
