@@ -23,6 +23,8 @@ public with sharing class EventLogFileBrowserController {
 
          return Database.query(basequery);
     }
+
+    
         
 }
 
