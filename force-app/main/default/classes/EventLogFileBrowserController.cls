@@ -24,7 +24,9 @@ public with sharing class EventLogFileBrowserController {
          return Database.query(basequery);
     }
 
-    
+    public List<Account> getAllAccounts(){
+        return [Select Id, Name From Account];
+    }
         
 }
 
