@@ -4,9 +4,8 @@ on:
   push:
     branches:
       - main
-      - "feature/*"
-      - "bugfix/*"
-
+    paths: 
+      - 'force-app/**'
 jobs:
   deploy:
     runs-on: ubuntu-latest
