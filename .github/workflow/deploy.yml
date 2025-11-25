@@ -4,25 +4,41 @@ on:
   push:
     branches:
       - main
-    paths: 
-      - 'force-app/**'
+    # Removing 'paths: - 'force-app/**'' for initial testing. 
+    # If the workflow runs now, your issue was the path filter.
+    # If you must keep it, ensure your pushed changes are inside force-app/
+    # paths: 
+    #   - 'force-app/**'
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Salesforce CLI
-        uses: salesforcecli/install@v1
+        # Use the newer @v2 for better stability
+        uses: salesforcecli/install@v2
 
-      - name: Authenticate Salesforce Org
+      - name: Authenticate Salesforce Org (using SFDX Auth URL)
         shell: bash
         run: |
-          echo "${{ secrets.SFDX_AUTH_FILE }}" > authFile.json
-          sf org login sfdx-url --sfdx-url-file authFile.json -a projectLog
+          # 1. Create a file with the raw sfdx auth URL string from the secret.
+          echo "${{ secrets.SFDX_AUTH_FILE }}" > authFile.txt
+          
+          # 2. Login using the sfdx-url command. 
+          # The -a flag sets the alias 'projectLog'
+          # We use authFile.txt here, which contains ONLY the raw force://... string
+          sf org login sfdx-url --sfdx-url-file authFile.txt -a projectLog
 
-      - name: Deploy to Salesforce
+      - name: Deploy Source to Salesforce
+        # Ensure your project structure is correct (e.g., using default packageDir 'force-app')
         run: |
+          # The -o flag is not for setting an alias; it specifies the target username/alias.
+          # Since we set the alias 'projectLog' in the previous step, we use it here.
           sf project deploy start -o projectLog
+          
+      - name: Clean up temporary files (Optional but good practice)
+        run: rm -f authFile.txt
