@@ -4,6 +4,11 @@
  */
 
 public with sharing class EventLogFileBrowserController {
+
+    /**
+     * @author Gokul
+     * @description - this will fetch all the events logs filter by start date, end date and eventtype
+     */
     
     public static List<EventLogFile> fetchEventLogs(Datetime startDate, Datetime endDate, String eventType, String interval){
       
