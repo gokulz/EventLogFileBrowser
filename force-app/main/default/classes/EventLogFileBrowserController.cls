@@ -32,8 +32,9 @@ public with sharing class EventLogFileBrowserController {
     /**
      * @description this method is use to pass the list of event type to the picklist
      */
-    public static List<String> getEventTypes(){
-        return [Select EventType From EventLogFile];
+    public static List<EventLogFile> getEventTypes(){
+      List<EventLogFile> eventTypes = [Select EventType From EventLogFile];
+        return eventTypes;
     }
 
         
