@@ -29,6 +29,13 @@ public with sharing class EventLogFileBrowserController {
          return Database.query(basequery);
     }
 
+    /**
+     * @description this method is use to pass the list of event type to the picklist
+     */
+    public static List<String> getEventTypes(){
+        return [Select EventType From EventLogFile];
+    }
+
         
 }
 
