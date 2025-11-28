@@ -15,4 +15,13 @@
     class="slds-m-top_medium">
     </lightning-input>
 
+    <lightning-combobox
+    label="Select an Event"
+    options={options}
+    value={selectedEventType}
+    onchange={handleEventTypeChange}
+    placeholder="Select Event Type">
+    </lightning-combobox>
+
+
 </template>

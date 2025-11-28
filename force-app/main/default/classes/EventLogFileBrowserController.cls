@@ -9,7 +9,7 @@ public with sharing class EventLogFileBrowserController {
      * @author Gokul
      * @description - this will fetch all the events logs filter by start date, end date and eventtype
      */
-    
+    @AuraEnabled
     public static List<EventLogFile> fetchEventLogs(Datetime startDate, Datetime endDate, String eventType, String interval){
       
         String basequery =  'SELECT Id, LogFile, EventType, CreatedDate, LogDate' +
@@ -32,10 +32,13 @@ public with sharing class EventLogFileBrowserController {
     /**
      * @description this method is use to pass the list of event type to the picklist
      */
+    @AuraEnabled(cacheable=true)
     public static List<EventLogFile> getEventTypes(){
       List<EventLogFile> eventTypes = [Select EventType From EventLogFile];
         return eventTypes;
     }
+
+    
 
         
 }
