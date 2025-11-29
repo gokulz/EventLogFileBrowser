@@ -33,12 +33,12 @@ jobs:
         shell: bash
         run: |
           # 1. Create a file with the raw sfdx auth URL string from the secret.
-          echo "${{ secrets.SFDX_AUTH_FILE }}" > authFile.txt
+          echo "${{ secrets.SFDX_AUTH_FILE }}" > authFile.json
           
           # 2. Login using the sfdx-url command. 
           # The -a flag sets the alias 'projectLog'
           # We use authFile.txt here, which contains ONLY the raw force://... string
-          sf org login sfdx-url --sfdx-url-file authFile.txt -a projectLog
+          sf org login sfdx-url --sfdx-url-file authFile.json -a projectLog
 
       - name: Deploy Source to Salesforce
         # Ensure your project structure is correct (e.g., using default packageDir 'force-app')
