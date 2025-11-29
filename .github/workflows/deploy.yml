@@ -33,7 +33,7 @@ jobs:
         shell: bash
         run: |
           # 1. Create a file with the raw sfdx auth URL string from the secret.
-          echo "${{ secrets.SFDX_AUTH_FILE }}" > authFile.txt
+          echo "${{ secrets.SFDX_AUTH_FILE }}" 
           
           # 2. Login using the sfdx-url command. 
           # The -a flag sets the alias 'projectLog'
