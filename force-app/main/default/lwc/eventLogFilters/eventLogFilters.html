@@ -17,11 +17,27 @@
 
     <lightning-combobox
     label="Select an Event"
-    options={options}
+    options={eventOptions}
     value={selectedEventType}
     onchange={handleEventTypeChange}
     placeholder="Select Event Type">
     </lightning-combobox>
+   
+    <lightning-combobox
+    label="Select an Interval"
+    options={intervalOptions}
+    value={selectedInterval}
+    onchange={handleIntervalChange}
+    placeholder="Select Interval">
+    </lightning-combobox>
+
+    <div class="slds-m-top_medium">
+    <lightning-button
+    label="Search"
+    variant="brand"
+    onclick={fetchLogs}> </lightning-button> 
+   </div>
+
 
 
 </template>

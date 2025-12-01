@@ -11,6 +11,15 @@ public with sharing class EventLogFileBrowserController {
      */
     @AuraEnabled
     public static List<EventLogFile> fetchEventLogs(Datetime startDate, Datetime endDate, String eventType, String interval){
+
+       if(startDate != null){
+           Date sd = startDate.date();
+           startDate = Datetime.newInstanceGmt(sd.year(), sd.month(), sd.day(), 0,0,0);
+       } 
+       if(endDate != null){
+           Date ed = endDate.date();
+           endDate = Datetime.newInstanceGmt(ed.year(), ed.month(), ed.day(), 23, 59,59);
+       }
       
         String basequery =  'SELECT Id, LogFile, EventType, CreatedDate, LogDate' +
                              ' FROM EventLogFile WHERE EventType = :eventType' +
